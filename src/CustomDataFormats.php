@@ -23,7 +23,7 @@ trait CustomDataFormats
      */
     public function toArray(bool $resolveRelations = true) : array
     {
-        return $this->toFormatArray(null, $resolveRelations);
+        return $this->toArrayFormat(null, $resolveRelations);
     }
 
     /**
@@ -32,7 +32,7 @@ trait CustomDataFormats
      *
      * @return array
      */
-    public function toFormatArray(?string $format = null, bool $resolveRelations = true) : array
+    public function toArrayFormat(?string $format = null, bool $resolveRelations = true) : array
     {
         $returnData = [];
         if ($format === null) {
@@ -145,7 +145,8 @@ trait CustomDataFormats
         if (isset($properties['countFields'])) {
             $totalCount                          = $this->$fieldName()->count();
             $data[$properties['countFields'][0]] = $totalCount;
-            $data[$properties['countFields'][1]] = $resolveRelations ? count($data[$fieldName]) : $data[$fieldName]->count();
+            $data[$properties['countFields'][1]] =
+                $resolveRelations ? count($data[$fieldName]) : $data[$fieldName]->count();
         }
 
         return $data;
